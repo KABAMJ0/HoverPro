@@ -1,47 +1,29 @@
-let applyTextHover = true;
-let applyButtonHover = true;
-let applyImageHover = true;
+(function () {
+    'use strict';
 
-// Read preferences from cookies
-document.addEventListener('DOMContentLoaded', () => {
-    applyTextHover = getCookie('applyTextHover') !== undefined ? getCookie('applyTextHover') === 'true' : true;
-    applyButtonHover = getCookie('applyButtonHover') !== undefined ? getCookie('applyButtonHover') === 'true' : true;
-    applyImageHover = getCookie('applyImageHover') !== undefined ? getCookie('applyImageHover') === 'true' : true;
+    // Add custom CSS to scale only clickable buttons, links, and text elements smoothly
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Smooth scaling on hover for clickable elements */
+        button, a, .clickable, [role="button"], [href], [onclick], 
+        span, p, h1, h2, h3, h4, h5, h6 {
+            transition: transform 0.3s ease !important;
+            transform-origin: center center; /* Keeps scaling centered */
+        }
 
-    applyHoverEffects();
-});
+        button:hover, a:hover, .clickable:hover, [role="button"]:hover, [href]:hover, [onclick]:hover {
+            transform: scale(1.1) !important; /* Scale up the hovered element */
+        }
 
-function applyHoverEffects() {
-    if (applyTextHover) {
-        GM_addStyle(`
-      p:hover, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, span:hover, li:hover {
-        transform: scale(1.1) !important;
-        transition: transform 0.3s ease !important;
-      }
-    `);
-    }
+        /* Scale down the text elements on hover */
+        span:hover, p:hover, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+            transform: scale(1.08) !important; /* Scale down the text */
+        }
 
-    if (applyButtonHover) {
-        GM_addStyle(`
-      button:hover, a:hover, [role="button"]:hover, [href]:hover, [onclick]:hover {
-        transform: scale(1.1) !important;
-        transition: transform 0.3s ease !important;
-      }
-    `);
-    }
-
-    if (applyImageHover) {
-        GM_addStyle(`
-      img:hover, svg:hover {
-        transform: scale(1.1) !important;
-        transition: transform 0.3s ease !important;
-      }
-    `);
-    }
-}
-
-// Helper function to get a specific cookie by name
-function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? match[2] : undefined;
-}
+        /* Ensures images, icons inside buttons or text elements scale smoothly if any */
+        button img, a img, .clickable img, span img, p img, h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
+            transition: transform 0.3s ease !important;
+        }
+    `;
+    document.head.appendChild(style);
+})();

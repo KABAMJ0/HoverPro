@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hover Scale Settings</title>
+    <title>Hover Scale Effect Settings</title>
     <style>
         body {
+            width: 200px;
             font-family: Arial, sans-serif;
             padding: 10px;
-            min-width: 200px;
         }
 
         label {
             display: block;
-            margin: 10px 0;
+            margin-bottom: 8px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <h3>Select Hoverable Elements</h3>
+    <h2>Hover Effect Options</h2>
     <label>
-        <input type="checkbox" id="textHover" /> Text Elements
+        <input type="checkbox" id="textHover" checked /> Scale text elements
     </label>
     <label>
-        <input type="checkbox" id="buttonHover" /> Buttons
+        <input type="checkbox" id="buttonHover" checked /> Scale buttons
     </label>
     <label>
-        <input type="checkbox" id="imageHover" /> Images
+        <input type="checkbox" id="imageHover" checked /> Scale images
     </label>
+    <button id="saveSettings">Save Settings</button>
+
     <script src="popup.js"></script>
 </body>
 </html>
